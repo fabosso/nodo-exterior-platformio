@@ -125,7 +125,6 @@ String incomingPayload;
 */
 const String knownCommands[KNOWN_COMMANDS_SIZE] = {
     "startAlert"    // inicia una alerta con el siguiente llamado a función: startAlert(750, 10);
-
 };
 
 /**
