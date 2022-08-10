@@ -99,6 +99,8 @@ void getNewGas() {
             gas = float(CAPACIDAD_COMBUSTIBLE);
         } else if (timeUltrasonic > TIME_VACIO) {
             gas = 0.0;
+        } else if (timeUltrasonic > TIME_VACIO) {
+            gas = 0.0;
         } else {
             gas = float(CAPACIDAD_COMBUSTIBLE) * (TIME_VACIO - timeUltrasonic) / (TIME_VACIO - TIME_LLENO);
         }
