@@ -84,28 +84,30 @@ void getNewRaindrop() {
 /**
     getNewGas() se encarga de obtener el nivel de combustible actual,
     luego de promediar la cantidad de tiempos de eco ultrasónico definidos por PING_SAMPLES,
-    basándose en la diferencia de distancia respecto del fondo del tanque, MAX_DISTANCE,
-    y de una constante que depende de la capacidad del tanque en litros (CAPACIDAD_COMBUSTIBLE).
+    basándose en la relación entre:
+    - la diferencia de tiempos entre el eco ultrasónico actual (timeUltrasonic) y el tiempo 
+    medido en vacío (T_VACIO), y
+    - la diferencia de tiempos entre el tiempo medido en vacío y el tiempo medido en lleno (T_LLENO).
+    multiplicada por una constante, la capacidad del tanque en litros (CAPACIDAD_COMBUSTIBLE).
     Luego de hacerlo, baja el flag gasRequested correspondiente.
 */
 void getNewGas() {
-    float dist = 0.0;
-    float height = 0.0;
+    float timeUltrasonic = 0.0;
     #ifndef GAS_MOCK
-        dist = sonar.ping_median(PING_SAMPLES);
-        dist = sonar.convert_cm(dist);
-        if (dist < MIN_DISTANCE) {
+        timeUltrasonic = sonar.ping_median(PING_SAMPLES);
+        if (timeUltrasonic < TIME_LLENO) {
             gas = float(CAPACIDAD_COMBUSTIBLE);
+        } else if (timeUltrasonic > TIME_VACIO) {
+            gas = 0.0;
         } else {
-            height = MAX_DISTANCE - dist;
-            gas = PI_TIMES_R_SQUARED * height;
+            gas = float(CAPACIDAD_COMBUSTIBLE) * (TIME_VACIO - timeUltrasonic) / (TIME_VACIO - TIME_LLENO);
         }
-
-        #if DEBUG_LEVEL >= 4
-            Serial.println(String(dist) + " cm");
-        #elif DEBUG_LEVEL >= 3
-            Serial.println("Nueva nafta: " + currentStates[5]);
-        #endif
+    #else
+        gas = GAS_MOCK;
+    #endif
+    #if DEBUG_LEVEL >= 4
+        Serial.println(String(timeUltrasonic) + " us");
+        Serial.println(String(gas) + " litros");
     #endif
     gasRequested = false;
 }

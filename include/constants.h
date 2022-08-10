@@ -29,18 +29,21 @@
 #define ARRAY_SIZE (TIMEOUT_LORA / TIMEOUT_READ_SENSORS + 3)
 #define TIMING_SLOTS 4 				// Cantidad de slots necesarios de timing (ver timing_helpers.h)
 
-// Sensores.
-#define MAX_DISTANCE 50             // Distancia al fondo del tanque [F].
-#define MIN_DISTANCE 5              // Distancia al borde del tanque [B].
-#define CAPACIDAD_COMBUSTIBLE 150   // Capacidad del tanque (en L).
-#define PI_TIMES_R_SQUARED (CAPACIDAD_COMBUSTIBLE) / (MAX_DISTANCE - MIN_DISTANCE)
+// Sensor de combustible.
+#define TIME_VACIO 1200             // Tiempo de retorno de eco ultrasónico cuando el tanque está vacío (en us).
+#define TIME_LLENO 500              // Tiempo de retorno de eco ultrasónico cuando el tanque está lleno (en us).
+#define CAPACIDAD_COMBUSTIBLE 12    // Capacidad del tanque (en L).
 #define PING_SAMPLES 5              // Cantidad de muestras ultrasónicos.
+
+// Sensor de corriente.
 #define EMON_CROSSINGS 20           // Cantidad de semi-ondas muestreadas para medir tensión y/o corriente.
-#define EMON_TIMEOUT 1000           // timeout de la rutina calcVI (en ms).
+#define EMON_TIMEOUT 1000           // Timeout de la rutina calcVI (en ms).
+
+// Sensor GPS.
 #define GPS_DECIMAL_POSITIONS 5     // Cantidad de posiciones decimales para medir la longitud y latitud del GPS.
 
 /// Valores mock.
 // #define CORRIENTE_MOCK 0.26        // Corriente falsa.
 // #define RAINDROP_MOCK 0            // Lluvia falsa.
-// #define NAFTA_MOCK 128.22          // Nafta falsa.
+// #define GAS_MOCK 10.11             // Nafta falsa.
 // #define GPS_MOCK (const float[]){-34.57475, -58.43552, 15} // GPS falso.
