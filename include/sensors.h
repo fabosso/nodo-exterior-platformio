@@ -63,19 +63,19 @@ void getNewCurrent() {
 void getNewRaindrop() {
     #ifndef RAINDROP_MOCK
         if (index < ARRAY_SIZE) {
-            if (analogRead(LLUVIA_PIN) >= LLUVIA_THRESHOLD_10BIT) {
-                #if LLUVIA_ACTIVO == HIGH
-                    raindrops[index] = true;
-                #else
-                    raindrops[index] = false;
-                #endif
-            } else {
-                #if LLUVIA_ACTIVO == HIGH
-                    raindrops[index] = false;
-                #else
-                    raindrops[index] = true;
-                #endif
-            }
+            #if LLUVIA_ACTIVO == HIGH
+                if (analogRead(LLUVIA_PIN) >= LLUVIA_THRESHOLD_10BIT) {
+                    raindrops[index] = 1;
+                } else {
+                    raindrops[index] = 0;
+                }
+            #else
+                if (analogRead(LLUVIA_PIN) < LLUVIA_THRESHOLD_10BIT) {
+                    raindrops[index] = 1;
+                } else {
+                    raindrops[index] = 0;
+                }
+            #endif
         }
     #endif
     refreshRequested[1] = false;

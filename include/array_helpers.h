@@ -32,6 +32,7 @@ float compressArray(float array[], int size) {
     }
     int nonZeroValues = size - zerosFound;
     average /= nonZeroValues;
+    average = round2decimals(average);
     #if DEBUG_LEVEL >= 5
         Serial.print("Average of array: ");
         Serial.println(average);

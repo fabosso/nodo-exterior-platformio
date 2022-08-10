@@ -135,7 +135,7 @@ void composeLoRaPayload(float cts[], int rain[], float gas, String& rtn) {
 
     rtn += "current";
     rtn += "=";
-    rtn += round2decimals(compressArray(cts, ARRAY_SIZE));
+    rtn += compressArray(cts, ARRAY_SIZE);
 
     rtn += "&";
     rtn += "raindrops";

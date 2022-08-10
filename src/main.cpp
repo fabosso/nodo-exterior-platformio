@@ -43,10 +43,10 @@
 float currents[ARRAY_SIZE] = {0.0};
 
 /**
-    raindrops es un array de enteros con signo que contienen los resultados del polleo del pin de lluvia
+    raindrops es un array de enteros con signo que contiene los resultados del polleo del pin de lluvia
     efectuados entre cada transmisión LoRa.
-    El tamaño del array (ARRAY_SIZE) depende del intervalo de tiempo entre cada transmisión LoRa (TIMEOUT_LORA)
-    y el intervalo de tiempo entre cada medición (TIMEOUT_READ_SENSORS).
+    El tamaño del array depende del intervalo de tiempo entre cada transmisión 
+    LoRa y el intervalo de tiempo entre cada medición.
     El valor que se transmite por LoRa en realidad es el resultado de una votación para evitar falsos positivos.
     Una vez realizada la transmisión, todos los valores de este array vuelven a ponerse en -1.
 */
