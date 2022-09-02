@@ -36,6 +36,7 @@
 #define PING_SAMPLES 5           // Cantidad de muestras ultrasónicos.
 
 // Sensor de corriente.
+#define EMON_CALIBRATION 111.1
 #define EMON_CROSSINGS 20 // Cantidad de semi-ondas muestreadas para medir tensión y/o corriente.
 #define EMON_TIMEOUT 1000 // Timeout de la rutina calcVI (en ms).
 

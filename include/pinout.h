@@ -53,9 +53,9 @@ RS232 (2) - | [ ]A7              INT0/D2[ ] | - Reservado para RA-02.
 // Pinout sensores y actuadores.
 #define CORRIENTE_PIN A1
 #define LLUVIA_PIN A0
-#define BUZZER_PIN 8
-#define RX_GPS_PIN 9
-#define TX_GPS_PIN 7
+#define BUZZER_PIN 7
+#define RX_GPS_PIN 8
+#define TX_GPS_PIN 9
 #define COMBUSTIBLE_ECHO_PIN 5      // A través de cable SparkOn.
 #define COMBUSTIBLE_TRIG_PIN 6      // A través de cable SparkOn.
 
@@ -89,6 +89,6 @@ void setupPinout() {
         pinMode(COMBUSTIBLE_ECHO_PIN, INPUT);
     #endif
     #ifdef CORRIENTE_PIN
-        eMon.voltage(CORRIENTE_PIN, 226.0, 1.7);
+        eMon.current(CORRIENTE_PIN, EMON_CALIBRATION); 
     #endif
 }

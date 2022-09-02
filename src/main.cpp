@@ -173,7 +173,7 @@ void setup() {
     reserveMemory();
     LoRaInitialize();
     ssGPS.begin(GPS_BPS);
-    startAlert(133, 3);
+    startAlert(133, 6);
 }
 
 /**
@@ -206,7 +206,7 @@ void loop() {
         LoRa.receive();
 
         // Inicia la alerta preestablecida.
-        startAlert(133, 3);
+        startAlert(133, 6);
 
         // Reestablece los arrays de medición.
         cleanupArray(currents, ARRAY_SIZE);
