@@ -1,6 +1,6 @@
 | Nodo LoRa |   |   |      Hub      |
 |-----------|---|---|---------------|
-| A2        | 1 | X |               |
+| A2        | 1 | X | xxx           |
 | A1        | 2 | 3 | Lluvia        |
 | A0        | 3 | 2 | Corriente     |
 | D9        | 4 | 6 | VCC           |
@@ -8,4 +8,4 @@
 | VCC       | 6 | 4 | GPS (RX)      |
 | N/C       | 7 | 8 | GPS (TX)      |
 | D7        | 8 | 7 | LED           |
-| D8        | 9 | X |               |
+| D8        | 9 | X | xxx           |
