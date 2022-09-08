@@ -71,6 +71,7 @@ RS232 (2) - | [ ]A7              INT0/D2[ ] | - Reservado para RA-02.
 // Instanciamiento de objetos relacionados al pinout.
 EnergyMonitor eMon;
 NewPing sonar(COMBUSTIBLE_TRIG_PIN, COMBUSTIBLE_ECHO_PIN, 300);
+// hacemos cruce de señales por SW, respecto del método constructor (TX -> RX, RX -> TX)
 SoftwareSerial ssGPS(TX_GPS_PIN, RX_GPS_PIN);
 TinyGPSPlus GPS;
 
