@@ -31,6 +31,9 @@
 // Biblioteca necesaria para emular otro puerto serie.
 #include <SoftwareSerial.h>     // https://www.arduino.cc/en/Reference/SoftwareSerial
 
+// Biblioteca necesaria para utilizar el watchdog timer. 
+#include <avr/wdt.h>            // https://www.nongnu.org/avr-libc/user-manual/group__avr__watchdog.html
+
 /// Declaración de variables globales.
 
 /**
@@ -76,7 +79,7 @@ bool refreshRequested[SENSORS_QTY] = {false};
     gasRequested es un flag que representa la necesidad inmediata de volver a medir el nivel
     de combustible del grupo electrógeno.
     Se diferencia de los otros sensores (los controlados por refreshRequested) porque esta medición
-    se realiza una vez cada TIMEOUT_LORA segundos (no una vez cada TIMEOUT_READ_SENSORS segundos).
+    se realiza una vez cada LORA_TIMEOUT segundos (no una vez cada TIMEOUT_READ_SENSORS segundos).
 */
 bool gasRequested = true;
 
@@ -84,7 +87,7 @@ bool gasRequested = true;
     GPSRequested es un flag que representa la necesidad inmediata de volver a leer la posición
     del GPS.
     Se diferencia de los otros sensores (los controlados por refreshRequested) porque esta medición
-    se realiza una vez cada TIMEOUT_LORA segundos (no una vez cada TIMEOUT_READ_SENSORS segundos).
+    se realiza una vez cada LORA_TIMEOUT segundos (no una vez cada TIMEOUT_READ_SENSORS segundos).
 */
 bool GPSRequested = true;
 
@@ -161,7 +164,8 @@ String altStr;
         - inicializa el periférico serial (real),
         - reserva espacios de memoria para las Strings,
         - inicializa el periférico serial del GPS (virtual),
-        - inicializa el módulo LoRa.
+        - inicializa el módulo LoRa,
+        - inicializa el watchdog timer en 8 segundos.
     Si después de realizar estas tareas no se "cuelga", da inicio
     a una alerta "exitosa".
 */
@@ -169,23 +173,34 @@ void setup() {
     setupPinout();
     #if DEBUG_LEVEL >= 1
         Serial.begin(SERIAL_BPS);
+        Serial.println("Puerto serial inicializado en modo debug.");
+        Serial.print("Nivel de debug = ");
+        Serial.println(DEBUG_LEVEL);
+        Serial.print("Fecha de última compilación: ");
+        Serial.print(__DATE__);
+        Serial.print(" ");
+        Serial.println(__TIME__);
+        Serial.println();
     #endif
     reserveMemory();
     LoRaInitialize();
     ssGPS.begin(GPS_BPS);
     startAlert(133, 6);
+    wdt_enable(WDTO_8S);
 }
 
 /**
     loop() determina las tareas que cumple el programa:
-        - cada TIMEOUT_LORA segundos, envía un payload LoRa.
-        - si no está ocupado con eso:
-            - se ocupa de disparar las alertas preestablecidas.
-            - cada TIMEOUT_READ_SENSORS segundos, refresca el estado de los sensores.
+        - cada LORA_TIMEOUT segundos, envía un payload LoRa.
+        - si corresponde, mide corriente, lluvia, combustible y GPS.
+        - observa el estado actual de las variables de programa y, de ser necesario, actúa:
+            - emite las alertas que sean necesarias,
+            - ejecuta comandos entrantes de LoRa.
+    Al finalizar el loop, resetea el watchdog timer.
     Esta función se repite hasta que se le dé un reset al programa.
 */
 void loop() {
-    if (runEvery(sec2ms(TIMEOUT_LORA), 1)) {
+    if (runEvery(sec2ms(LORA_TIMEOUT), 1)) {
         // Deja de refrescar TODOS los sensores.
         stopRefreshingAllSensors();
 
@@ -218,12 +233,6 @@ void loop() {
         // Vuelve a pedir que se refresque el estado del nivel de combustible.
         gasRequested = true;
     }
-
-    // Chequea la necesidad de inicializar alertas.
-    callbackAlert();
-
-    // Chequea la necesidad de realizar comandos remotos.
-    callbackLoRaCommand();
 
     if(runEvery(sec2ms(TIMEOUT_READ_SENSORS), 2)) {
         // Refresca TODOS los sensores dependientes de refreshRequested.
@@ -258,4 +267,12 @@ void loop() {
         }
     }
 
+    alertObserver();
+    LoRaCmdObserver();
+
+    #if DEBUG_LEVEL >= 2
+        scanTime();
+    #endif
+
+    wdt_reset();
 }

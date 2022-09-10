@@ -20,13 +20,13 @@
 #define INCOMING_FULL_MAX_SIZE (INCOMING_PAYLOAD_MAX_SIZE + DEVICE_ID_MAX_SIZE + 2) // Tamaño máximo esperado del mensaje entrante.
 #define MAX_SIZE_OUTCOMING_LORA_REPORT 200                                          // Tamaño máximo esperado del payload LoRa saliente.
 #define KNOWN_COMMANDS_SIZE 1                                                       // Cantidad de comandos LoRa conocidos.
-#define TIMEOUT_LORA 20                                                             // Tiempo entre cada mensaje LoRa.
+#define LORA_TIMEOUT 20                                                             // Tiempo entre cada mensaje LoRa.
 #define LORA_SYNC_WORD 0x34                                                         // Palabra de sincronización LoRa.
 
 /// Arrays.
 #define SENSORS_QTY 2          // Cantidad de sensores conectados.
 #define TIMEOUT_READ_SENSORS 2 // Tiempo entre mediciones.
-#define ARRAY_SIZE (TIMEOUT_LORA / TIMEOUT_READ_SENSORS + 3)
+#define ARRAY_SIZE (LORA_TIMEOUT / TIMEOUT_READ_SENSORS + 3)
 #define TIMING_SLOTS 4 // Cantidad de slots necesarios de timing (ver timing_helpers.h)
 
 // Sensor de combustible.

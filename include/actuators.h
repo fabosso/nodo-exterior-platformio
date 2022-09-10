@@ -7,13 +7,13 @@
 */
 
 /**
-    callbackAlert() se encarga de consultar el estado de la variable resetAlert:
+    alertObserver() se encarga de consultar el estado de la variable resetAlert:
     si existe un pedido de iniciar la alerta, actualiza pitidosRestantes
     en base a totalPitidos (configurado por startAlert()) y baja el flag de pedido.
     Luego, si existen pedidos restantes, los realiza en base a tiempoPitido (configurado
     por startAlert()).
 */
-void callbackAlert() {
+void alertObserver() {
     if (resetAlert && pitidosRestantes == 0) {
         pitidosRestantes = totalPitidos;
         resetAlert = false;
@@ -29,12 +29,12 @@ void callbackAlert() {
 }
 
 /**
-    callbackLoRaCommand() se encarga de consultar el estado de la variable incomingPayload.
+    LoRaCmdObserver() se encarga de consultar el estado de la variable incomingPayload.
     Si la variable está vacía, sale de la función.
     Si el comando existe dentro del array de comandos conocidos, ejecuta cierta acción.
     Incluso si no existiera, limpia incomingPayload.
 */
-void callbackLoRaCommand() {
+void LoRaCmdObserver() {
     if (incomingPayload == "") {
         return;
     } else {
