@@ -185,7 +185,7 @@ void setup() {
     reserveMemory();
     LoRaInitialize();
     ssGPS.begin(GPS_BPS);
-    startAlert(133, 6);
+    startAlert(133, 4);
     wdt_enable(WDTO_8S);
 }
 
@@ -221,7 +221,7 @@ void loop() {
         LoRa.receive();
 
         // Inicia la alerta preestablecida.
-        startAlert(133, 6);
+        startAlert(133, 4);
 
         // Reestablece los arrays de medición.
         cleanupArray(currents, ARRAY_SIZE);

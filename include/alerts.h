@@ -30,8 +30,8 @@ void blockingAlert(int tiempo, int pitidos) {
     startAlert() se encarga de inicializar la subrutina no bloqueante
     de alerta, en base a una cantidad de tiempo y de pitidos dados como parámetros.
     Por ejemplo:
-        startAlert(133, 6);
-    Realiza una serie de 3 pitidos en donde cada pitido (y no-pitido) del buzzer dura 133 ms.
+        startAlert(133, 4);
+    Realiza una serie de 4 pitidos en donde cada pitido (y no-pitido) del buzzer dura 133 ms.
     @param tiempo Tiempo que dura cada pitido.
     @param pitidos Cantidad de pitidos.
 */
