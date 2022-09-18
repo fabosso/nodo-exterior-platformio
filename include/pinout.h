@@ -56,8 +56,8 @@ RS232 (2) - | [ ]A7              INT0/D2[ ] | - Reservado para RA-02.
 #define BUZZER_PIN 7
 #define RX_GPS_PIN 8
 #define TX_GPS_PIN 9
-#define COMBUSTIBLE_ECHO_PIN 5      // A través de cable SparkOn.
-#define COMBUSTIBLE_TRIG_PIN 6      // A través de cable SparkOn.
+#define COMBUSTIBLE_ECHO_PIN 6      // A través de cable SparkOn.
+#define COMBUSTIBLE_TRIG_PIN 5      // A través de cable SparkOn.
 
 // Definición de modo de trabajo.
 #define BUZZER_ACTIVO HIGH
