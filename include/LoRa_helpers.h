@@ -28,33 +28,41 @@ void onReceive(int packetSize) {
         incomingFull += (char)LoRa.read();
     }
 
-    // Extraer el delimitador ">" para diferenciar el ID del payload.
-    int delimiter = incomingFull.indexOf(greaterThanStr);
+    // Se levanta un flag de finalización de lectura LoRa.
+    incomingFullComplete = true;
+}
 
-    // Obtener el ID de receptor.
-    receiverStr = incomingFull.substring(1, delimiter);
-    int receiverID = receiverStr.toInt();
-    #if DEBUG_LEVEL >= 1
-        Serial.print("Receiver: ");
-        Serial.println(receiverID);
-    #endif
+void downlinkObserver() {
+    if (incomingFullComplete) {
+        // Extraer el delimitador ">" para diferenciar el ID del payload.
+        int delimiter = incomingFull.indexOf(greaterThanStr);
 
-    // Si el ID del receptor coincide con nuestro ID o si es un broadcast:
-    if (receiverID == DEVICE_ID || receiverID == BROADCAST_ID) {
-        // Obtiene el payload entrante.
-        incomingPayload = incomingFull.substring(delimiter + 1);
+        // Obtener el ID de receptor.
+        receiverStr = incomingFull.substring(1, delimiter);
+        int receiverID = receiverStr.toInt();
         #if DEBUG_LEVEL >= 1
-            Serial.println("ID coincide!");
+            Serial.print("Receiver: ");
+            Serial.println(receiverID);
         #endif
-    } else {
-        #if DEBUG_LEVEL >= 2
-            Serial.println("Descartado por ID!");
-        #endif
-    }
 
-    // Limpiar strings.
-    incomingFull = "";
-    receiverStr = "";
+        // Si el ID del receptor coincide con nuestro ID o si es un broadcast:
+        if (receiverID == DEVICE_ID || receiverID == BROADCAST_ID) {
+            // Obtiene el payload entrante.
+            incomingPayload = incomingFull.substring(delimiter + 1);
+            #if DEBUG_LEVEL >= 1
+                Serial.println("ID coincide!");
+            #endif
+        } else {
+            #if DEBUG_LEVEL >= 2
+                Serial.println("Descartado por ID!");
+            #endif
+        }
+
+        // Limpiar variables.
+        incomingFullComplete = false;
+        incomingFull = "";
+        receiverStr = "";
+    }
 }
 
 /**
