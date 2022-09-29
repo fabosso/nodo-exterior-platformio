@@ -25,6 +25,8 @@ void alertObserver() {
                 pitidosRestantes--;
             }
         }
+    } else {
+        digitalWrite(BUZZER_PIN, BUZZER_INACTIVO);
     }
 }
 
