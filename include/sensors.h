@@ -118,7 +118,6 @@ void getNewGas() {
     getNewGPS() se encarga de leer la información proveniente del puerto
     serial correspondiente al GPS (ssGPS) y encodear esa información a un
     objeto que organiza esos datos (GPS).
-    Luego de hacerlo, baja el flag GPSRequested correspondiente.
 */
 void getNewGPS() {
     #ifndef GPS_MOCK
@@ -126,5 +125,4 @@ void getNewGPS() {
             GPS.encode(ssGPS.read());
         }
     #endif
-    GPSRequested = false;
 }

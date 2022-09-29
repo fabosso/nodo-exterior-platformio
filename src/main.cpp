@@ -193,7 +193,9 @@ void setup() {
     LoRaInitialize();
     ssGPS.begin(GPS_BPS);
     startAlert(133, 4);
-    wdt_enable(WDTO_8S);
+    #if USE_WATCHDOG_TMR
+        wdt_enable(WDTO_8S);
+    #endif
 }
 
 /**
@@ -267,19 +269,17 @@ void loop() {
             // Obtiene un nuevo valor de combustible.
             getNewGas();
         }
-
-        if (GPSRequested) {
-            // Obtiene un nuevo valor de GPS.
-            getNewGPS();
-        }
     }
 
     alertObserver();
     LoRaCmdObserver();
+    getNewGPS();
 
     #if DEBUG_LEVEL >= 2
-        scanTime();
+        // scanTime();
     #endif
 
-    wdt_reset();
+    #if USE_WATCHDOG_TMR
+        wdt_reset();
+    #endif
 }

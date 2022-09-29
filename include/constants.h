@@ -11,6 +11,9 @@
 #define SERIAL_BPS 9600 // Bitrate de las comunicaciones por puerto serial (físico).
 #define GPS_BPS 9600    // Bitrate de las comunicaciones por puerto serial del GPS (virtual).
 
+/// Watchdog
+#define USE_WATCHDOG_TMR FALSE
+
 /// LoRa.
 #define LORA_FREQ 433175000                                                         // Frecuencia de la transmisión LoRa (en Hz).
 #define DEVICE_ID 20009                                                             // Identificador de este nodo.
@@ -36,7 +39,13 @@
 #define PING_SAMPLES 5           // Cantidad de muestras ultrasónicos.
 
 // Sensor de corriente.
-#define EMON_CALIBRATION 111.1
+#define TRANSFORMER_RATIO 100 / 0.05
+#define BURDEN_RESISTOR 33
+#define IDEAL_CALIBRATION TRANSFORMER_RATIO / BURDEN_RESISTOR
+#define MEASURED_CURRENT 5.03
+#define REAL_CURRENT 5.23
+#define EMON_CALIBRATION IDEAL_CALIBRATION * (REAL_CURRENT / MEASURED_CURRENT)
+#define THRESHOLD_NOISE_CURRENT 0.5
 #define EMON_CROSSINGS 20 // Cantidad de semi-ondas muestreadas para medir tensión y/o corriente.
 #define EMON_TIMEOUT 1000 // Timeout de la rutina calcVI (en ms).
 
