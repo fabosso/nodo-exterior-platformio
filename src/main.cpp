@@ -193,8 +193,16 @@ void setup() {
     LoRaInitialize();
     ssGPS.begin(GPS_BPS);
     startAlert(133, 4);
-    #if USE_WATCHDOG_TMR
-        wdt_enable(WDTO_8S);
+    #if USE_WATCHDOG_TMR 
+        #if WATCHDOG_TMR >= 8 
+            wdt_enable(WDTO_8S);
+        #elif WATCHDOG_TMR >= 4
+            wdt_enable(WDTO_4S);
+        #elif WATCHDOG_TMR >= 2
+            wdt_enable(WDTO_2S);
+        #else
+            wdt_enable(WDTO_1S);
+        #endif
     #endif
 }
 

@@ -13,6 +13,7 @@
 
 /// Watchdog
 #define USE_WATCHDOG_TMR FALSE
+#define WATCHDOG_TMR 8
 
 /// LoRa.
 #define LORA_FREQ 433175000                                                         // Frecuencia de la transmisión LoRa (en Hz).
