@@ -41,7 +41,11 @@ void getNewCurrent() {
     if (index < ARRAY_SIZE) {
         #ifndef CORRIENTE_MOCK
             newCurrent = eMon.Irms;
-            currents[index] = newCurrent;
+            if (newCurrent <= THRESHOLD_NOISE_CURRENT) {
+                currents[index] = 0.001;
+            } else {
+                currents[index] = newCurrent;
+            }
         #else
             newCurrent = CORRIENTE_MOCK + random(30) / 100.0;
             currents[index] = newCurrent;
