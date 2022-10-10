@@ -38,6 +38,7 @@
 #define TIME_LLENO 500           // Tiempo de retorno de eco ultrasónico cuando el tanque está lleno (en us).
 #define CAPACIDAD_COMBUSTIBLE 12 // Capacidad del tanque (en L).
 #define PING_SAMPLES 5           // Cantidad de muestras ultrasónicos.
+#define ULTRASONICO_DIST_MAX 300 // Distancia máxima medible por el ultrasónico (en cm).
 
 // Sensor de corriente.
 #define TRANSFORMER_RATIO 100 / 0.05
@@ -45,13 +46,22 @@
 #define IDEAL_CALIBRATION TRANSFORMER_RATIO / BURDEN_RESISTOR
 #define MEASURED_CURRENT 5.03
 #define REAL_CURRENT 5.23
-#define EMON_CALIBRATION IDEAL_CALIBRATION * (REAL_CURRENT / MEASURED_CURRENT)
+#define EMON_CALIBRATION IDEAL_CALIBRATION *(REAL_CURRENT / MEASURED_CURRENT)
 #define THRESHOLD_NOISE_CURRENT 0.5
 #define EMON_CROSSINGS 20 // Cantidad de semi-ondas muestreadas para medir tensión y/o corriente.
 #define EMON_TIMEOUT 1000 // Timeout de la rutina calcVI (en ms).
 
+// Sensor de lluvia.
+#define LLUVIA_THRESHOLD_VOLTAGE 2.5 // Tensión threshold cuando llueve.
+#define LLUVIA_THRESHOLD_10BIT ((int)(LLUVIA_THRESHOLD_VOLTAGE * (1024 / 5.0)))
+#define LLUVIA_ACTIVO LOW
+
 // Sensor GPS.
 #define GPS_DECIMAL_POSITIONS 5 // Cantidad de posiciones decimales para medir la longitud y latitud del GPS.
+
+// Actuador buzzer.
+#define BUZZER_ACTIVO HIGH
+#define BUZZER_INACTIVO LOW
 
 /// Valores mock.
 // #define CORRIENTE_MOCK 0.26        // Corriente falsa.

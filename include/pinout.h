@@ -59,25 +59,15 @@ RS232 (2) - | [ ]A7              INT0/D2[ ] | - Reservado para RA-02.
 #define COMBUSTIBLE_ECHO_PIN 6      // A través de cable SparkOn.
 #define COMBUSTIBLE_TRIG_PIN 5      // A través de cable SparkOn.
 
-// Definición de modo de trabajo.
-#define BUZZER_ACTIVO HIGH
-#define BUZZER_INACTIVO LOW
-#define PRESENCIA_ACTIVO HIGH
-#define PRESENCIA_INACTIVO LOW
-#define LLUVIA_THRESHOLD_VOLTAGE 2.5    // Tensión threshold cuando llueve.
-#define LLUVIA_THRESHOLD_10BIT ((int)(LLUVIA_THRESHOLD_VOLTAGE * (1024 / 5.0)))
-#define LLUVIA_ACTIVO LOW
 
 // Instanciamiento de objetos relacionados al pinout.
 EnergyMonitor eMon;
-NewPing sonar(COMBUSTIBLE_TRIG_PIN, COMBUSTIBLE_ECHO_PIN, 300);
-// hacemos cruce de señales por SW, respecto del método constructor (TX -> RX, RX -> TX)
-SoftwareSerial ssGPS(TX_GPS_PIN, RX_GPS_PIN);
+NewPing sonar(COMBUSTIBLE_TRIG_PIN, COMBUSTIBLE_ECHO_PIN, ULTRASONICO_DIST_MAX);
+SoftwareSerial ssGPS(TX_GPS_PIN, RX_GPS_PIN); // hacemos cruce de señales por SW, respecto del método constructor (TX -> RX, RX -> TX)
 TinyGPSPlus GPS;
 
 /**
-    setupPinout() determina las I/Os digitales, inicializa al DS18B20
-    y calibra el módulo sensor de tensión.
+    setupPinout() determina las I/Os digitales y calibra el módulo sensor de corriente.
 */
 void setupPinout() {
     #ifdef BUZZER_PIN
