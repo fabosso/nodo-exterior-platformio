@@ -180,6 +180,8 @@ void setup() {
     setupPinout();
     #if DEBUG_LEVEL >= 1
         Serial.begin(SERIAL_BPS);
+        Serial.println("Nodo exterior");
+        Serial.println("");
         Serial.println("Puerto serial inicializado en modo debug.");
         Serial.print("Nivel de debug = ");
         Serial.println(DEBUG_LEVEL);
@@ -193,7 +195,7 @@ void setup() {
     LoRaInitialize();
     ssGPS.begin(GPS_BPS);
     startAlert(133, 4);
-    #if USE_WATCHDOG_TMR 
+    #if USE_WATCHDOG_TMR == TRUE
         #if WATCHDOG_TMR >= 8 
             wdt_enable(WDTO_8S);
         #elif WATCHDOG_TMR >= 4
@@ -287,7 +289,7 @@ void loop() {
         // scanTime();
     #endif
 
-    #if USE_WATCHDOG_TMR
+    #if USE_WATCHDOG_TMR == TRUE
         wdt_reset();
     #endif
 }
