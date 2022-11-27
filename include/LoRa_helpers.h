@@ -124,7 +124,7 @@ void reserveMemory() {
         GPS.location.lng() = 58.43552318
         GPS.location.alt() = 15.62
     Entonces, esta función sobreescribe la String a retornar con:
-        "<20009>current=0.65&raindrops=1&gas=123.51/150&lat=-34.57475&lng=58.43552&alt=15"
+        "<20009>current=0.65&raindrops=1&gas=6.21/12&lat=-34.57475&lng=58.43552&alt=15"
     @param cts Array con los valores de medición de corriente.
     @param rain Array con los valores de medición de lluvia.
     @param gas Número con coma flotante con la medición de combustible.

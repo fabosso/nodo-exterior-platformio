@@ -15,18 +15,18 @@
             | [ ]D13/SCK        MISO/D12[ ] | - Reservado para RA-02.
             | [ ]3.3V           MOSI/D11[ ]~| - Reservado para RA-02.
             | [ ]V.ref     ___    SS/D10[ ]~| - Reservado para RA-02.
-RS232 (1) - | [ ]A0       / N \       D9[ ]~| - RS232 (1).
-RS232 (1) - | [ ]A1      /  A  \      D8[ ] | - RS232 (1).
-RS232 (1) - | [ ]A2      \  N  /      D7[ ] | - RS232 (1).
-RS232 (2) - | [ ]A3       \_0_/       D6[ ]~| - Cable USB / SparkOn.
-RS232 (2) - | [ ]A4/SDA               D5[ ]~| - Cable USB / SparkOn.
-RS232 (2) - | [ ]A5/SCL               D4[ ] | - Reservado para RA-02.
-RS232 (2) - | [ ]A6              INT1/D3[ ]~| - Reservado para RA-02.
-RS232 (2) - | [ ]A7              INT0/D2[ ] | - Reservado para RA-02.
+  DB9 (1) - | [ ]A0       / N \       D9[ ]~| - DB9 (1).
+  DB9 (1) - | [ ]A1      /  A  \      D8[ ] | - DB9 (1).
+  DB9 (1) - | [ ]A2      \  N  /      D7[ ] | - DB9 (1).
+  DB9 (2) - | [ ]A3       \_0_/       D6[ ]~| - Cable USB / SparkON.
+  DB9 (2) - | [ ]A4/SDA               D5[ ]~| - Cable USB / SparkON.
+  DB9 (2) - | [ ]A5/SCL               D4[ ] | - Reservado para RA-02.
+  DB9 (2) - | [ ]A6              INT1/D3[ ]~| - Reservado para RA-02.
+  DB9 (2) - | [ ]A7              INT0/D2[ ] | - Reservado para RA-02.
             | [ ]5V                  GND[ ] |
             | [ ]RST                 RST[ ] |
-            | [ ]GND   5V MOSI GND   TX1[ ] |  - RS232 (2).
-            | [ ]Vin   [ ] [ ] [ ]   RX1[ ] |  - RS232 (2).
+            | [ ]GND   5V MOSI GND   TX1[ ] |  - DB9 (2).
+            | [ ]Vin   [ ] [ ] [ ]   RX1[ ] |  - DB9 (2).
             |          [ ] [ ] [ ]          |
             |          MISO SCK RST         |
             |                               |
@@ -46,8 +46,8 @@ RS232 (2) - | [ ]A7              INT0/D2[ ] | - Reservado para RA-02.
         - Puerto RS232 (1):
             - Sensor de corriente = A1.
             - Sensor de lluvia = A0.
-            - Sensor GPS = D9 (RX) + D7 (TX).
-            - Actuador buzzer (y LED) = D8.
+            - Sensor GPS = D8 (RX) + D9 (TX).
+            - Actuador buzzer (y LED) = D7.
 */
 
 // Pinout sensores y actuadores.
